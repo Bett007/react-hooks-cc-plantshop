@@ -9,7 +9,8 @@ function PlantCard({ plant, onToggleStock }) {
     <li className="card" data-testid="plant-item">
       <img src={image || "https://via.placeholder.com/400"} alt={name} />
       <h4>{name}</h4>
-      <p>Price: ${Number(price).toFixed(2)}</p>
+      {/* removed .toFixed(2) since price already includes decimals in data */}
+      <p>Price: {price}</p>
       {inStock ? (
         <button
           className="primary"
