@@ -3,15 +3,16 @@ import React from "react";
 function PlantCard({ plant, onToggleStock }) {
   if (!plant) return null;
 
-  const { id, name, image, price, inStock } = plant;
-
   return (
     <li className="card" data-testid="plant-item">
       <img src={plant.image} alt={plant.name} />
       <h4>{plant.name}</h4>
       {/* removed .toFixed(2) since price already includes decimals in data */}
       <p>Price: {plant.price}</p>
-      <button onClick={() => onToggleStock?.(plant.id)}>
+      <button
+        className={plant.inStock ? "primary" : ""}
+        onClick={() => onToggleStock?.(plant.id)}
+      >
         {plant.inStock ? "In Stock" : "Out of Stock"}
       </button>
     </li>
