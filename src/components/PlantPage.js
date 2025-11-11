@@ -15,7 +15,10 @@ function PlantPage() {
       .then((r) => r.json())
       .then((data) => {
         // Ensure each plant has an inStock property by default
-        const normalized = data.map((p) => ({ ...p, inStock: p.inStock ?? true }));
+        const normalized = data.map((p) => ({
+          ...p,
+          inStock: p.inStock ?? true,
+        }));
         setPlants(normalized);
       })
       .catch((err) => {
@@ -27,21 +30,15 @@ function PlantPage() {
   function handleAddPlant(newPlant) {
     // newPlant is { name, image, price }
     fetch(API, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(newPlant),
-    })
-      .then((r) => {
-        if (!r.ok) throw new Error("Failed to create plant");
-        return r.json();
-      })
-      .then((created) => {
-        // Normalise and add inStock default
-        setPlants((prev) => [...prev, { ...created, inStock: true }]);
-      })
-      .catch((err) => {
-        console.error("Error creating plant:", err);
-      });
+  method: "POST",
+  headers: { "Content-Type": "Application/JSON" },
+  body: JSON.stringify(newPlant),
+})
+  .then((r) => {
+    if (!r.ok) throw new Error("Failed to create plant");
+    return r.json();
+  })
+
   }
 
   // Toggle stock status for a plant (local state only)
@@ -55,6 +52,9 @@ function PlantPage() {
   const displayedPlants = plants.filter((p) =>
     p.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+  // Pass to PlantList
+  <PlantList plants={displayedPlants} onToggleStock={handleToggleStock} />;
 
   return (
     <main>

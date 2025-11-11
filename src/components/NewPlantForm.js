@@ -32,7 +32,7 @@ function NewPlantForm({ onAddPlant }) {
       body: JSON.stringify(payload),
     })
       .then((r) => r.json())
-      .then((data) => onAddPlant(data));
+      .then((data) => onAddPlant?.(data));
 
     // Call parent handler
     if (onAddPlant) onAddPlant(payload);

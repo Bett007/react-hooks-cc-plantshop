@@ -11,18 +11,9 @@ function PlantCard({ plant, onToggleStock }) {
       <h4>{plant.name}</h4>
       {/* removed .toFixed(2) since price already includes decimals in data */}
       <p>Price: {plant.price}</p>
-      {inStock ? (
-        <button
-          className="primary"
-          onClick={() => onToggleStock && onToggleStock(id)}
-        >
-          In Stock
-        </button>
-      ) : (
-        <button onClick={() => onToggleStock && onToggleStock(id)}>
-          Out of Stock
-        </button>
-      )}
+      <button onClick={() => onToggleStock?.(plant.id)}>
+        {plant.inStock ? "In Stock" : "Out of Stock"}
+      </button>
     </li>
   );
 }
