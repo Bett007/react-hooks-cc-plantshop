@@ -7,10 +7,10 @@ function PlantCard({ plant, onToggleStock }) {
 
   return (
     <li className="card" data-testid="plant-item">
-      <img src={image || "https://via.placeholder.com/400"} alt={name} />
-      <h4>{name}</h4>
+      <img src={plant.image} alt={plant.name} />
+      <h4>{plant.name}</h4>
       {/* removed .toFixed(2) since price already includes decimals in data */}
-      <p>Price: {price}</p>
+      <p>Price: {plant.price}</p>
       {inStock ? (
         <button
           className="primary"

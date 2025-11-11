@@ -10,15 +10,10 @@ function NewPlantForm({ onAddPlant }) {
 
   function handleSubmit(e) {
     e.preventDefault();
+
     // Basic validation
     if (!form.name.trim() || !form.image.trim() || form.price === "") {
       alert("Please fill in name, image and price");
-      return;
-    }
-
-    const priceNumber = Number(form.price);
-    if (Number.isNaN(priceNumber)) {
-      alert("Price must be a number");
       return;
     }
 
@@ -26,8 +21,18 @@ function NewPlantForm({ onAddPlant }) {
     const payload = {
       name: form.name.trim(),
       image: form.image.trim(),
-      price: priceNumber,
+      price: form.price,
     };
+
+    fetch("http://localhost:6001/plants", {
+      method: "POST",
+      headers: {
+        "Content-Type": "Application/JSON",
+      },
+      body: JSON.stringify(payload),
+    })
+      .then((r) => r.json())
+      .then((data) => onAddPlant(data));
 
     // Call parent handler
     if (onAddPlant) onAddPlant(payload);
